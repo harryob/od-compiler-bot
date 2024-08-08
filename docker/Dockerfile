@@ -7,14 +7,15 @@ COPY ./OpenDream/ .
 ARG BULD_CONFIG=Release
 
 RUN if [ "$BULD_CONFIG" = "Release" ]; then \
-		apk update && apk add tar && \
+		apk update && apk add tar && mkdir -p /opendream/bin/DMCompiler && mkdir -p /opendream/bin/Content.Server && \
 		curl -L https://github.com/OpenDreamProject/OpenDream/releases/download/latest/DMCompiler_linux-x64.tar.gz -o DMCompiler.tar.gz && \
 		curl -L https://github.com/OpenDreamProject/OpenDream/releases/download/latest/OpenDreamServer_linux-x64.tar.gz -o Content.Server.tar.gz && \
-		mkdir /opendream/bin && tar xzf DMCompiler.tar.gz -C /opendream/bin --strip-components=1 && tar xzf Content.Server.tar.gz -C /opendream/bin --strip-components=1; \
+		tar x -z -f DMCompiler.tar.gz -C /opendream/bin/DMCompiler --strip-components=1 && tar x -z -f Content.Server.tar.gz -C /opendream/bin/Content.Server --strip-components=1; \
 	else \
 		dotnet build OpenDreamServer --configuration ${BULD_CONFIG} && \
 		dotnet build DMCompiler --configuration ${BULD_CONFIG}; \
 	fi && \
+	ls /opendream/bin && \
 	ln -s /opendream/bin/DMCompiler/DMCompiler /usr/bin/ && \
 	ln -s /opendream/bin/Content.Server/OpenDreamServer /usr/bin;
 
