@@ -9,8 +9,7 @@ ARG BULD_CONFIG=Release
 RUN if [ "$BULD_CONFIG" = "Release" ]; then \
 		curl -L https://github.com/OpenDreamProject/OpenDream/releases/download/latest/DMCompiler_linux-x64.tar.gz -o DMCompiler.tar.gz && \
 		curl -L https://github.com/OpenDreamProject/OpenDream/releases/download/latest/OpenDreamServer_linux-x64.tar.gz -o Content.Server.tar.gz && \
-		mkdir -p /opendream/bin/DMCompiler && mkdir /opendream/bin/Content.Server && \
-		tar x -z -f DMCompiler.tar.gz -C /opendream/bin && tar x -z -f Content.Server.tar.gz -C /opendream/bin; \
+		mkdir /opendream/bin && tar x -z -f DMCompiler.tar.gz -C /opendream/bin && tar x -z -f Content.Server.tar.gz -C /opendream/bin; \
 	else \
 		dotnet build OpenDreamServer --configuration ${BULD_CONFIG} && \
 		dotnet build DMCompiler --configuration ${BULD_CONFIG}; \
