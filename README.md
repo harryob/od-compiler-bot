@@ -33,4 +33,4 @@ python wsgi.py
 
 ## Development
 
-Setup the python environment with `poetry install`, activate the environment with `poetry shell`, install the pre-commit hooks with `pre-commit install`
+Setup the python environment with `poetry install`, activate the environment with `poetry shell`, install the pre-commit hooks with `pre-commit install`.
